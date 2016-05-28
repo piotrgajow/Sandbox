@@ -1,3 +1,8 @@
+( defn readInt [ prompt ]
+    ( println prompt )
+    ( Integer/parseInt ( read-line ) )
+)
+
 ( defn total [ price & winnings ] 
     ( - ( reduce + winnings ) price )
 )
@@ -23,21 +28,31 @@
     ( * prob prize )
 )
 
-( defn lotto [] 
-    ( println "Lotto" )
-    ( println "Cumulation?" )
-    ( let [ cumulation ( Integer/parseInt ( read-line ) ) 
-            prize6 ( winnings ( chances 6 6 49 ) cumulation )
+( defn lotto [ cumulation ] 
+    ( let [ prize6 ( winnings ( chances 6 6 49 ) cumulation )
             prize5 ( winnings ( chances 5 6 49 ) 5300 )
             prize4 ( winnings ( chances 4 6 49 ) 170 )
             prize3 ( winnings ( chances 3 6 49 ) 24 )
         ] 
-        ( println "Result" ( double ( total 3 prize6 prize5 prize4 prize3 ) ) )
+        ( double ( total 3 prize6 prize5 prize4 prize3 ) )
+    )
+)
+
+( defn lottoZPlusem [ cumulation ] 
+    ( let [ prize6 ( winnings ( chances 6 6 49 ) cumulation )
+            prize5 ( winnings ( chances 5 6 49 ) 5300 )
+            prize4 ( winnings ( chances 4 6 49 ) 170 )
+            prize3 ( winnings ( chances 3 6 49 ) 24 )
+            prize6P ( winnings ( chances 6 6 49 ) 1000000 )
+            prize5P ( winnings ( chances 5 6 49 ) 3500 )
+            prize4P ( winnings ( chances 4 6 49 ) 100 )
+            prize3P ( winnings ( chances 3 6 49 ) 10 )
+        ] 
+        ( double ( total 4 prize6 prize5 prize4 prize3 prize6P prize5P prize4P prize3P ) )
     )
 )
 
 ( defn ekstraPensja [] 
-    ( println "Ekstra pensja" )
     ( let [ rnk1 ( winnings ( / ( chances 5 5 35 ) 4 ) 1200000 )
             rnk2 ( winnings ( chances 5 5 35 ) 25000 )
             rnk3 ( winnings ( / ( chances 4 5 35 ) 4 ) 1000 )
@@ -47,27 +62,17 @@
             rnk7 ( winnings ( / ( chances 2 5 35 ) 4 ) 10 )
             rnk8 ( winnings ( chances 2 5 35 ) 5 )
         ]
-        ( println "Result" ( double ( total 5 rnk1 rnk2 rnk3 rnk4 rnk5 rnk6 rnk7 rnk8 ) ) )
+        ( double ( total 4 rnk1 rnk2 rnk3 rnk4 rnk5 rnk6 rnk7 rnk8 ) )
     )
 )
 
-( defn menu []
-    ( do 
+( do 
+    ( let [ lottoCumulation ( readInt "Enter Lotto cumulation:" ) 
+            ; miniLottoPrize ( readInt "Enter MiniLotto prize:" )
+        ]
         ( println "" )
-        ( println "0. Exit" )
-        ( println "1. Lotto" )
-        ( println "2. Ekstra pensja")
-        ( println "Choice?" )
-        ( let [ in ( read-line ) ] 
-            ( case in
-                "0" ( System/exit 0 )
-                "1" ( lotto )
-                "2" ( ekstraPensja )
-                ()
-            )
-            ( menu )
-        )
+        ( println "Lotto:" ( lotto lottoCumulation ) )
+        ( println "Lotto z plusem:" ( lottoZPlusem lottoCumulation ) )
+        ( println "Ekstra pensja:" ( ekstraPensja ) )
     )
 )
-
-( menu )
