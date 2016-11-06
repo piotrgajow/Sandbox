@@ -1,3 +1,7 @@
-# Lotto
+# Clojure Sandbox
 
-Simple calculations of winning opportunities in Lotto lotteries, implemented in clojure
+Learning Clojure language
+
+## Lotto
+
+Simple program calculating winning opportunities in polish lottery Lotto. Takes into account prize and probability of winning.
