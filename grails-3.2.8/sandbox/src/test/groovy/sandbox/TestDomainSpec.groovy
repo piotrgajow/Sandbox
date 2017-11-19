@@ -1,12 +1,12 @@
 package sandbox
 
+import grails.test.hibernate.HibernateSpec
 import grails.test.mixin.TestFor
-import spock.lang.Specification
 
 import java.time.Year
 
 @TestFor(TestDomain)
-class TestDomainSpec extends Specification {
+class TestDomainSpec extends HibernateSpec {
 
     void "Dynamic finder should work with java.time.Year"() {
         given:
@@ -14,6 +14,10 @@ class TestDomainSpec extends Specification {
 
         expect:
         TestDomain.findByYear(Year.of(2000))
+    }
+
+    List getDomainClasses() {
+        return [TestDomain]
     }
 
 }
