@@ -46,6 +46,8 @@ dependencies {
     testCompile "org.grails.plugins:geb"
     testRuntime "org.seleniumhq.selenium:selenium-htmlunit-driver:2.47.1"
     testRuntime "net.sourceforge.htmlunit:htmlunit:2.18"
+
+    testCompile "org.grails.plugins:build-test-data:3.0.1"
 }
 
 bootRun {
