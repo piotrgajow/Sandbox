@@ -12,13 +12,23 @@ class TestSpec extends Specification {
 
         expect:
         instance.id == 1
-        Base.get(1)?.id == null
+        Base.get(1)?.id == null // expected 1
     }
 
-    void 'Weird workaround'() {
+    void 'Workaround version 1'() {
         given:
         def instance = Extended.build()
-        println Base.list()
+        Base.list()
+
+        expect:
+        instance.id == 1
+        Base.get(1)?.id == 1
+    }
+
+    void 'Workaround version 2'() {
+        given:
+        def instance = Extended.build()
+        Extended.list()
 
         expect:
         instance.id == 1
