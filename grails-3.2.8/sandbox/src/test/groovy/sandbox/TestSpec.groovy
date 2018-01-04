@@ -15,6 +15,24 @@ class TestSpec extends Specification {
         Base.get(1)?.id == null // FIXME expected 1
     }
 
+    void 'findById does find Base instance'() {
+        given:
+        def instance = Extended.build()
+
+        expect:
+        instance.id == 1
+        Base.findById(1)?.id == 1
+    }
+
+    void 'load does find Base instance'() {
+        given:
+        def instance = Extended.build()
+
+        expect:
+        instance.id == 1
+        Base.load(1)?.id == 1
+    }
+
     void 'Calling Base.list() makes get find Base instance'() {
         given:
         def instance = Extended.build()
