@@ -6,16 +6,16 @@ import spock.lang.Specification
 @Build([Base, Extended])
 class TestSpec extends Specification {
 
-    void 'Base instance is not fount, but it should be'() {
+    void 'Get does not find Base instance, but it should'() {
         given:
         def instance = Extended.build()
 
         expect:
         instance.id == 1
-        Base.get(1)?.id == null // expected 1
+        Base.get(1)?.id == null // FIXME expected 1
     }
 
-    void 'Workaround version 1'() {
+    void 'Calling Base.list() makes get find Base instance'() {
         given:
         def instance = Extended.build()
         Base.list()
@@ -25,7 +25,7 @@ class TestSpec extends Specification {
         Base.get(1)?.id == 1
     }
 
-    void 'Workaround version 2'() {
+    void 'Calling Extended.list() makes get find Base instance'() {
         given:
         def instance = Extended.build()
         Extended.list()
